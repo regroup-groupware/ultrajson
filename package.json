@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "author": {
-    "name": "Regroup Groupware",
-    "url": "https://github.com/regroup-groupware"
+    "name": "Regroup",
+    "url": "https://github.com/regroup-gw"
   },
   "repository": {
-    "url": "https://github.com/regroup-groupware/ultrajson",
+    "url": "https://github.com/regroup-gw/ultrajson",
     "type": "git"
   },
   "dependencies": {},
