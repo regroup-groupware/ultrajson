@@ -1,0 +1,17 @@
+{
+  "name": "ultrajson",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Regroup Groupware",
+    "url": "https://github.com/regroup-groupware"
+  },
+  "repository": {
+    "url": "https://github.com/regroup-groupware/ultrajson",
+    "type": "git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}
