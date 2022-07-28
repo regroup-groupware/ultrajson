@@ -1,4 +1,8 @@
+import { inspect } from 'util'
+
 import { Impl } from './types'
+
+import { UltrajsonDeflateError, UltrajsonDepthError, UltrajsonInflateError } from './errors'
 
 import { StringImpl } from './impls/StringImpl'
 import { NullImpl } from './impls/NullImpl'
@@ -6,7 +10,7 @@ import { NumberImpl } from './impls/NumberImpl'
 import { UndefinedImpl } from './impls/UndefinedImpl'
 import { BooleanImpl } from './impls/BooleanImpl'
 import { ArrayImpl } from './impls/ArrayImpl'
-import { UltrajsonDeflateError, UltrajsonDepthError, UltrajsonInflateError } from './errors'
+import { DateImpl } from './impls/DateImpl'
 
 const impls = {
   [StringImpl.prefix]: StringImpl,
@@ -15,6 +19,7 @@ const impls = {
   [ArrayImpl.prefix]: ArrayImpl,
   [NullImpl.prefix]: NullImpl,
   [UndefinedImpl.prefix]: UndefinedImpl,
+  [DateImpl.prefix]: DateImpl,
 } as const
 
 export function deflate (obj: any, impls: Record<string, Impl>, maxDepth = Infinity, depth = 0): any {
@@ -73,21 +78,21 @@ export function inflate (obj: any, impls: Record<string, Impl>, maxDepth = Infin
       throw new UltrajsonInflateError('Failed to inflate data.')
     }
 
-
+    return result.value
   } else {
     return obj
   }
 }
 
-export function stringify (obj: any, maxDepth = Infinity, depth = 0): string {
-  return JSON.stringify(deflate(obj, impls), null , 2)
+export function stringify (obj: any): string {
+  return JSON.stringify(deflate(obj, impls), null, 2)
 }
 
 export function parse (data: string): any {
-
+  return inflate(JSON.parse(data), impls)
 }
 
-console.log(stringify({
+const orig = {
   number: 1,
   infinity: Infinity,
   nan: NaN,
@@ -96,6 +101,7 @@ console.log(stringify({
   false: false,
   null: null,
   undefined: undefined,
+  date: new Date(),
   array: [
     'item1',
     'item2',
@@ -105,5 +111,18 @@ console.log(stringify({
         123
       ]
     }
-  ]
-}))
+  ],
+  nested: {
+    array: [
+      true,
+      '123',
+      null,
+      undefined
+    ]
+  }
+}
+
+const str = stringify(orig)
+const pass = parse(str)
+
+console.log(orig, pass)

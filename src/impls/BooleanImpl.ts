@@ -1,6 +1,6 @@
 import { Impl } from '../types'
 
-export const BooleanImpl: Impl = {
+export const BooleanImpl: Impl<boolean> = {
   prefix: 'bool',
 
   match (value) {

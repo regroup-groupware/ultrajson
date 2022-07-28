@@ -1,6 +1,6 @@
 import { Impl } from '../types'
 
-export const ArrayImpl: Impl = {
+export const ArrayImpl: Impl<any[]> = {
   prefix: 'arr',
 
   match (value) {

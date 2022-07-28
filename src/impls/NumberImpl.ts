@@ -1,6 +1,6 @@
 import { Impl } from '../types'
 
-export const NumberImpl: Impl = {
+export const NumberImpl: Impl<number> = {
   prefix: 'num',
 
   match (value) {

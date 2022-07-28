@@ -1,22 +1,22 @@
 import { Impl } from '../types'
 
-export const StringImpl: Impl<string> = {
-  prefix: 'str',
+export const SymbolImpl: Impl<Date> = {
+  prefix: 'sym',
 
   match (value) {
-    return typeof value === 'string'
+    return value instanceof Date
   },
   deflate (value) {
     return {
       success: true,
-      value
+      value: value.toISOString()
     }
   },
   inflate (value) {
     return (typeof value === 'string')
       ? {
         success: true,
-        value
+        value: new Date(value)
       }
       : {
         success: false

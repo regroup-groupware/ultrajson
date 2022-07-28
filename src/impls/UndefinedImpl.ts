@@ -1,6 +1,6 @@
 import { Impl } from '../types'
 
-export const UndefinedImpl: Impl = {
+export const UndefinedImpl: Impl<undefined> = {
   prefix: 'undef',
 
   match (value) {
