@@ -1,5 +1,3 @@
-import { inspect } from 'util'
-
 import { Impl } from './types'
 
 import { UltrajsonDeflateError, UltrajsonDepthError, UltrajsonInflateError } from './errors'
@@ -26,7 +24,7 @@ const impls = {
   [SetImpl.prefix]: SetImpl,
 } as const
 
-export function deflate (obj: any, impls: Record<string, Impl>, maxDepth = Infinity, depth = 0): any {
+function deflate (obj: any, impls: Record<string, Impl>, maxDepth = Infinity, depth = 0): any {
   if (depth > maxDepth) {
     throw new UltrajsonDepthError('Maximum depth has been exceeded.')
   }
@@ -63,7 +61,7 @@ export function deflate (obj: any, impls: Record<string, Impl>, maxDepth = Infin
   }
 }
 
-export function inflate (obj: any, impls: Record<string, Impl>, maxDepth = Infinity, depth = 0): any {
+function inflate (obj: any, impls: Record<string, Impl>, maxDepth = Infinity, depth = 0): any {
   if (depth > maxDepth) {
     throw new UltrajsonDepthError('Maximum depth has been exceeded.')
   }
@@ -88,18 +86,10 @@ export function inflate (obj: any, impls: Record<string, Impl>, maxDepth = Infin
   }
 }
 
-export function stringify (obj: any): string {
-  return JSON.stringify(deflate(obj, impls), null, 2)
+export function stringify (obj: any, maxDepth = Infinity, ownImpls?: Record<string, Impl>): string {
+  return JSON.stringify(deflate(obj, { ...impls, ...ownImpls }, maxDepth))
 }
 
-export function parse (data: string): any {
-  return inflate(JSON.parse(data), impls)
+export function parse (data: string, maxDepth = Infinity, ownImpls?: Record<string, Impl>): any {
+  return inflate(JSON.parse(data), { ...impls, ...ownImpls }, maxDepth)
 }
-
-const orig: any = {}
-orig.orig = orig
-
-const str = stringify(orig)
-const pass = parse(str)
-
-console.log(orig, pass)
