@@ -1,22 +1,22 @@
 import { Impl } from '../types'
 
-export const SymbolImpl: Impl<Date> = {
-  prefix: 'sym',
+export const SetImpl: Impl<Set<any>> = {
+  prefix: 'set',
 
   match (value) {
-    return value instanceof Date
+    return value instanceof Set
   },
   deflate (value) {
     return {
       success: true,
-      value: value.toISOString()
+      value: value.entries()
     }
   },
   inflate (value) {
-    return (typeof value === 'string')
+    return (Array.isArray(value))
       ? {
         success: true,
-        value: new Date(value)
+        value: new Set(value)
       }
       : {
         success: false

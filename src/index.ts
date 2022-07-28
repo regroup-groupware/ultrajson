@@ -5,12 +5,14 @@ import { Impl } from './types'
 import { UltrajsonDeflateError, UltrajsonDepthError, UltrajsonInflateError } from './errors'
 
 import { StringImpl } from './impls/StringImpl'
-import { NullImpl } from './impls/NullImpl'
 import { NumberImpl } from './impls/NumberImpl'
-import { UndefinedImpl } from './impls/UndefinedImpl'
 import { BooleanImpl } from './impls/BooleanImpl'
 import { ArrayImpl } from './impls/ArrayImpl'
+import { NullImpl } from './impls/NullImpl'
+import { UndefinedImpl } from './impls/UndefinedImpl'
 import { DateImpl } from './impls/DateImpl'
+import { MapImpl } from './impls/MapImpl'
+import { SetImpl } from './impls/SetImpl'
 
 const impls = {
   [StringImpl.prefix]: StringImpl,
@@ -20,6 +22,7 @@ const impls = {
   [NullImpl.prefix]: NullImpl,
   [UndefinedImpl.prefix]: UndefinedImpl,
   [DateImpl.prefix]: DateImpl,
+  [MapImpl.prefix]: MapImpl,
 } as const
 
 export function deflate (obj: any, impls: Record<string, Impl>, maxDepth = Infinity, depth = 0): any {
