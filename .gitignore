@@ -33,7 +33,3 @@ node_modules/
 
 # dotenv environment variables file
 .env
-
-# Build / generate output
-.nuxt
-dist

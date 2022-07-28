@@ -1,7 +1,3 @@
-export interface WithType<T> {
-  [x: string]: T | WithType<T>
-}
-
 interface ResultSuccess<T> {
   success: true
   value?: T
