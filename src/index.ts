@@ -23,6 +23,7 @@ const impls = {
   [UndefinedImpl.prefix]: UndefinedImpl,
   [DateImpl.prefix]: DateImpl,
   [MapImpl.prefix]: MapImpl,
+  [SetImpl.prefix]: SetImpl,
 } as const
 
 export function deflate (obj: any, impls: Record<string, Impl>, maxDepth = Infinity, depth = 0): any {
@@ -95,35 +96,8 @@ export function parse (data: string): any {
   return inflate(JSON.parse(data), impls)
 }
 
-const orig = {
-  number: 1,
-  infinity: Infinity,
-  nan: NaN,
-  string: "this is a string",
-  true: true,
-  false: false,
-  null: null,
-  undefined: undefined,
-  date: new Date(),
-  array: [
-    'item1',
-    'item2',
-    {
-      string: 'hello',
-      array: [
-        123
-      ]
-    }
-  ],
-  nested: {
-    array: [
-      true,
-      '123',
-      null,
-      undefined
-    ]
-  }
-}
+const orig: any = {}
+orig.orig = orig
 
 const str = stringify(orig)
 const pass = parse(str)
