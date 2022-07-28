@@ -1,6 +1,6 @@
-import { Impl } from '../../types'
+import { Impl } from '../types'
 
-export const StringImpl: Impl<string> = {
+export const StringImpl: Impl = {
   prefix: 'str',
 
   match (value) {

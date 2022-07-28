@@ -1,6 +1,6 @@
-import { Impl } from '../../types'
+import { Impl } from '../types'
 
-export const NullImpl: Impl<null> = {
+export const NullImpl: Impl = {
   prefix: 'null',
 
   match (value) {

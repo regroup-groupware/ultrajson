@@ -1,6 +1,6 @@
-import { Impl } from '../../types'
+import { Impl } from '../types'
 
-export const ArrayImpl: Impl<Array<any>> = {
+export const ArrayImpl: Impl = {
   prefix: 'arr',
 
   match (value) {

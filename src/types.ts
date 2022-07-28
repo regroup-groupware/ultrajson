@@ -16,10 +16,10 @@ export type Result<T, E> = ResultSuccess<T> | ResultError<E>
 
 export type DeepImpl = (value: any) => any
 
-export interface Impl<T> {
+export interface Impl {
   prefix: string
 
-  match (value: any, match: (value: any) => boolean): boolean
-  deflate (value: T, deflate: DeepImpl): Result<any, any>
-  inflate (data: any, inflate: DeepImpl): Result<T, any>
+  match (value: any): boolean
+  deflate (value: any, deflate: DeepImpl): Result<any, any>
+  inflate (data: any, inflate: DeepImpl): Result<any, any>
 }
